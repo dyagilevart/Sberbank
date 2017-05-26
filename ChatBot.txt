@@ -1,7 +1,7 @@
 //http://www.sberbank.ru/ru/person/credits/money/consumer_unsecured
 //http://bililite.com/inc/bililiteRange.js
 //http://bililite.com/inc/jquery.sendkeys.js
-
+//http://jsfiddle.net/DxER9/
 
 var names = ["Денис", "Саша", "Олеся", "Антон", "Игорь", "Борис", "Антонина", "Валера", "Алексей", "Мария", "Кунжут", "Кунжут01"];
 var greetings = ["Здравствуйте", "Привет", "Добрый день", "Добрый вечер", "Хаю хай"];
@@ -14,43 +14,63 @@ function send_chat_message() {
     $(".chat_send").click();
 }
 
+
+
 function main() {
     $(".chat-icon ").click();
+    function main2() {
 
-    function main1() {
-        var name = getRandomText(names);
-        var greeting = getRandomText(greetings);
+        if ($(".sbtchkit-input__control").length > 0) {
+            clearInterval(check_for_textbox);
 
-        for (var i = 0; i < name.length; i++)
-            $(".sbtchkit-input__control").sendkeys(name[i]);
+            function main1() {
+                var name = getRandomText(names);
+                var greeting = getRandomText(greetings);
+
+                for (var i = 0; i < name.length; i++)
+                    $(".sbtchkit-input__control").sendkeys(name[i]);
 
 
 
-        function start_chat() {
-            $(".kit-button_color_orange").click();
+                function start_chat() {
+                    $(".kit-button_color_orange").click();
 
-            function greet() {
-                console.log("greet()");
-                if ($(".message_in_text").length > 0) {
-                    function send_greet() {
-                        console.log("send_greet()");
-                        for (var i = 0; i < greeting.length; i++)
-                            $(".chat_field").sendkeys(greeting[i]);
+                    function greet() {
+                        console.log("greet()");
+                        if ($(".message_in_text").length > 0) {
+                            function send_greet() {
+                                console.log("send_greet()");
+                                for (var i = 0; i < greeting.length; i++) {
+                                    $(".chat_field").sendkeys(greeting[i]);
+                                }
 
-                        setTimeout(send_chat_message, 5000);
+                                setTimeout(send_chat_message, 5000);
+
+                            }
+                            function open_new_chat() {
+                                if ($(".message_sys_text").length > 2) {
+                                    //$(".header_icon-close").click();
+                                    $(".kit-button_color_orange").click();
+                                    clearInterval(check_for_end);
+                                    main();
+                                }
+                            }
+                            clearInterval(check_for_greet);
+                            setTimeout(send_greet, 15000);
+                            var check_for_end = setInterval(open_new_chat, 5000);
+                        }
                     }
-                    clearInterval(check_for_greet);
-                    setTimeout(send_greet, 15000);
-                }
-            }
 
-            var check_for_greet = setInterval(greet, 5000);
+                    var check_for_greet = setInterval(greet, 5000);
+                }
+
+                setTimeout(start_chat, 4000);
+            }
         }
 
-        setTimeout(start_chat, 4000);
+        setTimeout(main1, 4000);
     }
-
-    setTimeout(main1, 4000);
+    var check_for_textbox = setInterval(main2, 7000);
 }
 
 main();
