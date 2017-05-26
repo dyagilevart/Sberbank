@@ -36,10 +36,8 @@ function main() {
                     $(".kit-button_color_orange").click();
 
                     function greet() {
-                        console.log("greet()");
                         if ($(".message_in_text").length > 0) {
                             function send_greet() {
-                                console.log("send_greet()");
                                 for (var i = 0; i < greeting.length; i++) {
                                     $(".chat_field").sendkeys(greeting[i]);
                                 }
@@ -48,7 +46,7 @@ function main() {
 
                             }
                             function open_new_chat() {
-                                if ($(".message_sys_text").length > 2) {
+                                if ($(".message_sys_text").last()[0].innerHTML.indexOf("Чат завершен") != -1) {
                                     //$(".header_icon-close").click();
                                     $(".kit-button_color_orange").click();
                                     clearInterval(check_for_end);
